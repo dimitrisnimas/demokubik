@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -12,6 +12,8 @@ import { I18nProvider } from './i18n/I18nContext';
 import Loader from './components/Loader';
 import AdminRoutes from './admin/AdminRoutes';
 import { ProjectProvider } from './context/ProjectContext';
+import { AuthProvider } from './admin/contexts/AuthContext';
+import { ProjectAdminProvider } from './admin/contexts/ProjectAdminContext';
 
 const ScrollToTop: React.FC = () => {
     const { pathname } = useLocation();
@@ -35,7 +37,13 @@ const AppContent: React.FC = () => {
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/project/:projectId" element={<ProjectDetailPage />} />
-                    <Route path="/admin/*" element={<AdminRoutes />} />
+                    <Route path="/admin/*" element={
+                        <AuthProvider>
+                            <ProjectAdminProvider>
+                                <AdminRoutes />
+                            </ProjectAdminProvider>
+                        </AuthProvider>
+                    } />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </main>
@@ -58,14 +66,14 @@ const App: React.FC = () => {
     }
 
     return (
-        <ProjectProvider>
+        <Router>
             <I18nProvider>
-                <Router>
-                    <ScrollToTop />
-                    <AppContent />
-                </Router>
+                <ProjectProvider>
+                        <ScrollToTop />
+                        <AppContent />
+                </ProjectProvider>
             </I18nProvider>
-        </ProjectProvider>
+        </Router>
     );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { ProjectAdminProvider } from './contexts/ProjectAdminContext';
+import { useAuth } from './contexts/AuthContext';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminProjectFormPage from './pages/AdminProjectFormPage';
@@ -23,7 +22,7 @@ const ProtectedRoute: React.FC = () => {
     return <AdminLayout />;
 };
 
-const AdminRoutesContent: React.FC = () => {
+const AdminRoutes: React.FC = () => {
     return (
          <Routes>
             {/* Public route available under /admin/login */}
@@ -42,16 +41,5 @@ const AdminRoutesContent: React.FC = () => {
         </Routes>
     )
 }
-
-
-const AdminRoutes: React.FC = () => {
-    return (
-       <AuthProvider>
-            <ProjectAdminProvider>
-               <AdminRoutesContent />
-            </ProjectAdminProvider>
-       </AuthProvider>
-    );
-};
 
 export default AdminRoutes;
