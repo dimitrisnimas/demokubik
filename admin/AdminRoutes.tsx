@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProjectAdminProvider } from './contexts/ProjectAdminContext';
 import AdminLoginPage from './pages/AdminLoginPage';
@@ -19,18 +19,25 @@ const ProtectedRoute: React.FC = () => {
        return <Navigate to="/admin/login" state={{ from: location }} replace />;
     }
     
+    // AdminLayout contains the <Outlet/> for the nested protected routes to render into.
     return <AdminLayout />;
 };
 
 const AdminRoutesContent: React.FC = () => {
     return (
          <Routes>
+            {/* Public route available under /admin/login */}
             <Route path="login" element={<AdminLoginPage />} />
-            <Route path="/" element={<ProtectedRoute />}>
-                <Route index element={<Navigate to="dashboard" replace />} />
+
+            {/* A wrapper route that protects all its children */}
+            <Route element={<ProtectedRoute />}>
+                {/* Protected routes */}
                 <Route path="dashboard" element={<AdminDashboardPage />} />
                 <Route path="projects/new" element={<AdminProjectFormPage />} />
                 <Route path="projects/edit/:projectId" element={<AdminProjectFormPage />} />
+
+                {/* Index route to redirect from /admin -> /admin/dashboard */}
+                <Route index element={<Navigate to="dashboard" replace />} />
             </Route>
         </Routes>
     )
