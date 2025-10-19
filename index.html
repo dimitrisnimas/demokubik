@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KUBIK Agency</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'kubik-purple': {
+              DEFAULT: '#8B5CF6',
+              'light': '#A78BFA',
+            },
+            'kubik-dark': '#0a0a0a',
+            'kubik-gray': '#111111',
+          },
+          animation: {
+            'letter-reveal': 'letter-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+            'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+            'fade-in': 'fade-in 1s ease-out forwards',
+            'background-pan': 'background-pan 3s linear infinite',
+            'lines-pan': 'lines-pan 40s linear infinite',
+          },
+          keyframes: {
+            'letter-reveal': {
+              '0%': { opacity: '0', transform: 'translateY(20px) scale(0.8)', textShadow: 'none' },
+              '100%': { opacity: '1', transform: 'translateY(0) scale(1)', textShadow: '0 0 15px rgba(139, 92, 246, 0.5)' },
+            },
+            'fade-in-up': {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'fade-in': {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            'background-pan': {
+              '0%': { backgroundPosition: '0% center' },
+              '100%': { backgroundPosition: '-200% center' },
+            },
+            'lines-pan': {
+              '0%': { backgroundPosition: '0 0' },
+              '100%': { backgroundPosition: '0 480px' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.4",
+    "@heroicons/react/": "https://aistudiocdn.com/@heroicons/react@^2.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-kubik-dark antialiased">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
